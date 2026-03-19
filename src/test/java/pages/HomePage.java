@@ -2,33 +2,36 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import utils.WaitUtil;
 
 public class HomePage {
 
-    WebDriver driver;
+    private WebDriver driver;
+    private WaitUtil waitUtil;
+
+    By productTitle = By.className("title");
+    By addToCartBtn = By.id("add-to-cart-sauce-labs-backpack");
+    By cartIcon = By.className("shopping_cart_link");
+    By removeBtn = By.id("remove-sauce-labs-backpack");
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
+        this.waitUtil = new WaitUtil(driver);
     }
-
-    By productTitle = By.className("title");
 
     public String getPageTitle() {
-        return driver.findElement(productTitle).getText();
+        return waitUtil.waitForVisible(productTitle).getText();
     }
-    By addToCartBtn = By.id("add-to-cart-sauce-labs-backpack");
-    By cartIcon = By.className("shopping_cart_link");
 
     public void addProductToCart() {
-        driver.findElement(addToCartBtn).click();
+        waitUtil.waitForClickable(addToCartBtn).click();
     }
 
     public void clickCart() {
-        driver.findElement(cartIcon).click();
+        waitUtil.waitForClickable(cartIcon).click();
     }
-    By removeBtn = By.id("remove-sauce-labs-backpack");
 
     public void removeProduct() {
-        driver.findElement(removeBtn).click();
+        waitUtil.waitForClickable(removeBtn).click();
     }
 }

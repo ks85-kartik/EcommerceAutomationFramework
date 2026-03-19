@@ -28,6 +28,10 @@ public class BaseTest {
         options.addArguments("--disable-autofill");
         options.addArguments("--disable-notifications");
 
+        options.addArguments("--headless=new");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+
         driver = new ChromeDriver(options);
 
         driver.manage().window().maximize();
@@ -45,6 +49,6 @@ public class BaseTest {
             ScreenshotUtil.takeScreenshot(driver, result.getName());
         }
 
-        //driver.quit();
+        driver.quit();
     }
 }

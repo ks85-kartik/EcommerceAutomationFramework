@@ -5,6 +5,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import utils.ScreenshotUtil;
 
 public class BaseTest {
 
@@ -34,8 +37,14 @@ public class BaseTest {
 
     }
 
+
     @AfterMethod
-    public void tearDown() {
+    public void tearDown(ITestResult result) {
+
+        if (ITestResult.FAILURE == result.getStatus()) {
+            ScreenshotUtil.takeScreenshot(driver, result.getName());
+        }
+
         //driver.quit();
     }
 }
